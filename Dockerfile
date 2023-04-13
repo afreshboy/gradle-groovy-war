@@ -21,7 +21,7 @@ COPY --from=builder /opt/application/build/libs/*.war /usr/local/tomcat/myapps/
 RUN war_name=$(ls /usr/local/tomcat/myapps | sort -r | grep .war -m 1) && sed -i s/8080/8000/g /usr/local/tomcat/conf/server.xml && rm -rf /usr/local/tomcat/webapps/ROOT && content='\ \t<Context path="" docBase="/usr/local/tomcat/myapps/'"${war_name}"'"></Context>' && num=$(grep -n 'autoDeploy' /usr/local/tomcat/conf/server.xml | awk -F ":" '{print $1}') && sed -i ''"${num}"'a '"${content}"'' /usr/local/tomcat/conf/server.xml
 
 # 写入run.sh
-RUN echo -e '#!/usr/bin/env bash\nsh /usr/local/tomcat/bin/catalina.sh run' > /opt/application/run.sh
+RUN echo '#!/usr/bin/env bash\nsh /usr/local/tomcat/bin/catalina.sh run' > /opt/application/run.sh
 
 # 指定run.sh权限
 Run chmod a+x run.sh
