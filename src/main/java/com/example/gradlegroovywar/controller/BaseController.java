@@ -22,4 +22,8 @@ public class BaseController {
     public int post_count(@RequestBody BaseReq baseReq) {
         return baseService.GetCount(baseReq.getNum1(),  baseReq.getNum2());
     }
+    @RequestMapping(value = "/v1/pingt", method = RequestMethod.GET)
+    public String ping() {
+        return "ping";
+    }
 }
